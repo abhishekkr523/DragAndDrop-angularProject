@@ -1,0 +1,84 @@
+<div class="todoBody">
+    <mat-card class="matCardContainer">
+        <div class="inputField">
+            <div class="text">
+                <h1>Taskboard</h1>
+            </div>
+            <div class="form-section">
+                <form [formGroup]="todoForm">
+                    <mat-form-field class="matFormField" appearance="outline">
+                        <mat-label>task details</mat-label>
+                        <input matInput placeholder="Placeholder" formControlName="item">
+                    </mat-form-field>
+                    <button mat-raised-button [disabled]="todoForm.invalid" color="primary"
+                        (click)="addTask()">Submit</button>
+
+                </form>
+            </div>
+        </div>
+        <div class="dragAndDropArea">
+            <div cdkDropListGroup>
+                <div class="example-container">
+                    <h2 class="todo">To do</h2>
+
+                    <div cdkDropList [cdkDropListData]="tasks" class="example-list" (cdkDropListDropped)="drop($event)">
+                        <div class="example-box blue" *ngFor="let item of tasks; let i=index" cdkDrag
+                            (cdkDragStarted)="onDragStart('todo')">{{item.description}}
+                            <div class="icon">
+                                <button mat-icon-button color="warn"
+                                    (click)="deleteTask(i)"><mat-icon>delete</mat-icon></button>
+                                <button mat-icon-button color="primary"
+                                    (click)="editTask(i)"><mat-icon>edit</mat-icon></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="example-container">
+                    <h2 class="inprogress">Inprogress</h2>
+
+                    <div cdkDropList [cdkDropListData]="inprogress" class="example-list"
+                        (cdkDropListDropped)="drop($event)">
+                        <div class="example-box yellow" *ngFor="let item of inprogress; let i=index" cdkDrag
+                            (cdkDragStarted)="onDragStart('inprogress')">{{item.description}}
+                            <div class="icon">
+                                <button mat-icon-button color="primary"
+                                    (click)="deleteInprogressTask(i)"><mat-icon>delete</mat-icon></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="example-container">
+                    <h2 class="onhold">Onhold</h2>
+
+                    <div cdkDropList [cdkDropListData]="onhold" class="example-list"
+                        (cdkDropListDropped)="drop($event)">
+                        <div class="example-box red" *ngFor="let item of onhold; let i=index" cdkDrag
+                            (cdkDragStarted)="onDragStart('onhold')">{{item.description}}
+                            <div class="icon">
+                                <button mat-icon-button color="primary"
+                                    (click)="deleteOnholdTask(i)"><mat-icon>delete</mat-icon></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="example-container">
+                    <h2 class="completed">Completed</h2>
+
+                    <div cdkDropList [cdkDropListData]="completed" class="example-list"
+                        (cdkDropListDropped)="drop($event)">
+                        <div class="example-box green" *ngFor="let item of completed; let i=index" cdkDrag
+                            (cdkDragStarted)="onDragStart('completed')">{{item.description}}
+                            <div class="icon">
+                                <button mat-icon-button color="primary"
+                                    (click)="deleteCompletedTask(i)"><mat-icon>delete</mat-icon></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </mat-card>
+</div>
